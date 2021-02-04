@@ -35,18 +35,32 @@ def check_cell(symb: str, used: list) -> bool:
 def check_row(board: list, row: int) -> bool:
     '''
     Check if the symbols in a given row are unique or ' ', '*'
+
     '''
 
     used = []
     for col in range(len(board)):
         if not check_cell(board[row][col], used):
             return False
+
+    return True
+
+def check_col(board:list, col: int) -> bool:
+    '''
+    Check if the symbols in a given column are unique or ' ', '*'
+
+    '''
+
+    used = []
+    for row in range(len(board)):
+        print(used)
+        if not check_cell(board[row][col], used):
+            return False
+
     return True
 
 
 
-
-
 if __name__ == "__main__":
-    print(check_row(EXAMPLE, 2))
+    print(check_col(EXAMPLE, 4))
 
