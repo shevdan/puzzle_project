@@ -1,1 +1,1 @@
-# puzzle_project
+Command-Line-Application - Second task of the lab1 UCU programming course
