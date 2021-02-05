@@ -1,6 +1,7 @@
 '''
 This module is designed to check if the game board is ready to play
 
+https://github.com/shevdan/puzzle_project
 '''
 
 EXAMPLE = [
@@ -23,6 +24,12 @@ def check_cell(symb: str, used: list) -> bool:
     and False otherwise. ' ' and '*' are included in visited
     by default so they do not affect the function.
 
+    >>> check_cell(' ', ['1', '*', ' '])
+    True
+    >>> check_cell('*', ['1', '*', ' '])
+    True
+    >>> check_cell('1', ['1', '*', ' '])
+    False
     '''
 
 
@@ -36,6 +43,10 @@ def check_row(board: list, row: int) -> bool:
     '''
     Check if the symbols in a given row are unique or ' ', '*'
 
+    >>> check_row(EXAMPLE, 4)
+    True
+    >>> check_row(EXAMPLE, 1)
+    True
     '''
 
     used = []
@@ -49,6 +60,10 @@ def check_col(board:list, col: int) -> bool:
     '''
     Check if the symbols in a given column are unique or ' ', '*'
 
+    >>> check_col(EXAMPLE, 4)
+    False
+    >>> check_col(EXAMPLE, 1)
+    True
     '''
 
     used = []
@@ -64,6 +79,9 @@ def check_color(board:list) -> bool:
     Colors indexing starts at 0 meaning the leftmost corner of the border.
     If any of the symbols in any of the colors is not unique, returns False
 
+    >>> check_color(EXAMPLE)
+    True
+
     '''
 
     #board should be at least 5x5 size to contain colored colors
@@ -73,6 +91,7 @@ def check_color(board:list) -> bool:
         used = []
         color_idx = len(board) - curr_col - 1
         corner = board[color_idx][curr_col]
+        #adding to the visited corner symbol not to check it twice
         used.append(corner)
         for idx in range(1, 5):
             #check the colored 5 cells in a row, excluding corner cell
@@ -85,7 +104,23 @@ def check_color(board:list) -> bool:
                 return False
         return True
 
+def check_board(board: list):
+    '''
+    Main function for validating the board for the beginning of the game
+
+    >>> check_board(EXAMPLE)
+    False
+    '''
+    size = len(board)
+    if check_color(board):
+        for idx in range(size):
+            if check_col(board, idx) and check_row(board, idx):
+                continue
+            return False
+    return True
+
 
 if __name__ == "__main__":
-    print(check_color(EXAMPLE))
+    import doctest
+    doctest.testmod()
 
