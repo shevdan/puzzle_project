@@ -5,7 +5,7 @@ https://github.com/shevdan/puzzle_project
 '''
 
 EXAMPLE = [
-"**** ****",
+ "**** ****",
  "***1 ****",
  "**  3****",
  "* 4 1****",
@@ -15,7 +15,6 @@ EXAMPLE = [
  "  8  2***",
  "  2  ****"
 ]
-
 
 def check_cell(symb: str, used: list) -> bool:
     '''
@@ -102,17 +101,20 @@ def check_color(board:list) -> bool:
             #len(board) - check_idx reverses the index for column indexation
             if not check_cell(board[color_idx - idx][curr_col], used):
                 return False
-        return True
 
-def check_board(board: list):
+    return True
+
+def validate_board(board: list):
     '''
     Main function for validating the board for the beginning of the game
 
-    >>> check_board(EXAMPLE)
+    >>> validate_board(EXAMPLE)
     False
     '''
     size = len(board)
-    if check_color(board):
+    if not check_color(board):
+        return False
+    else:
         for idx in range(size):
             if check_col(board, idx) and check_row(board, idx):
                 continue
@@ -123,4 +125,3 @@ def check_board(board: list):
 if __name__ == "__main__":
     import doctest
     doctest.testmod()
-
